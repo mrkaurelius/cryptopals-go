@@ -1,4 +1,6 @@
-package main
+package xor
+
+// TODO packagefy
 
 import (
 	"encoding/hex"
