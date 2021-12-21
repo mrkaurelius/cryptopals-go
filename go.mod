@@ -1,3 +1,3 @@
-module cryptopals
+module github.com/mrkaurelius/cryptopals-go/v2
 
-go 1.16
+go 1.17

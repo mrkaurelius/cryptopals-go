@@ -1,4 +1,4 @@
-package base64
+package cryptopals
 
 import (
 	"encoding/hex"
