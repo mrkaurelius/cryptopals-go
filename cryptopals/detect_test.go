@@ -19,9 +19,8 @@ func TestXorSingleByte(t *testing.T) {
 	var bestScore float64 = 0.0
 	var bestText string
 
-	for i := 65; i < 91; i++ {
-		r := rune(i)
-		possiblePlainText := cryptopals.XorSingleByte(cipherTextBytes, r)
+	for i := 0; i < 256; i++ {
+		possiblePlainText := cryptopals.XorSingleByte(cipherTextBytes, uint8(i))
 		fmt.Println(string(possiblePlainText))
 
 		score := cryptopals.Englishness(string(possiblePlainText))

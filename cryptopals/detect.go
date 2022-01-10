@@ -2,12 +2,16 @@ package cryptopals
 
 import (
 	"bytes"
+	"encoding/hex"
 	"fmt"
 	"io/ioutil"
 	"math"
 	"strings"
 )
 
+// TODO neden farkli calistirmalar farkli sonuclar buluyor ?
+// nOWTHATTHEPARTYISJUMPING* 0.769583058499731
+// Now that the party is jumping 0.769583058499731
 func DetectSingleByteXor(filepath string) {
 	// TODO burada kaldim dosyadan hex encoding decoding te problem olabilir, test caselerini yaz
 	content, _ := ioutil.ReadFile(filepath)
@@ -16,21 +20,21 @@ func DetectSingleByteXor(filepath string) {
 	var bestScore float64
 	var bestText string
 
-	// println(line)
-	for _, line := range lines {
-		for i := 65; i < 91; i++ {
-			r := rune(i)
-			possiblePlainText := XorSingleByte(line, r)
-
-			// fmt.Println(string(possiblePlainText))
-
+	for _, cipherText := range lines {
+		for i := 0; i < 256; i++ {
+			hexDecodedCipherText := make([]byte, 30)
+			_, err := hex.Decode(hexDecodedCipherText, cipherText)
+			if err != nil {
+				fmt.Println(err)
+				panic(err)
+			}
+			possiblePlainText := XorSingleByte(hexDecodedCipherText, uint8(i))
 			score := Englishness(string(possiblePlainText))
-			// fmt.Printf("Text %s, score %f\n", string(possiblePlainText), score)
 
 			if score > bestScore {
 				bestScore = score
 				bestText = string(possiblePlainText)
-				fmt.Printf("Text %s, score %f\n", string(possiblePlainText), score)
+				// fmt.Printf("Text %s, score %f\n", string(possiblePlainText), score)
 			}
 		}
 

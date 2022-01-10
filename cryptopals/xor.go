@@ -28,10 +28,10 @@ func XorBuffer(buffer1, buffer2 []byte) []byte {
 	return xorBuffer
 }
 
-func XorSingleByte(buffer []byte, key rune) []byte {
+func XorSingleByte(buffer []byte, key uint8) []byte {
 	xoredBytes := make([]byte, len(buffer))
 	for i, _ := range buffer {
-		xoredBytes[i] = uint8(key) ^ uint8(buffer[i])
+		xoredBytes[i] = key ^ uint8(buffer[i])
 	}
 	return xoredBytes
 }
